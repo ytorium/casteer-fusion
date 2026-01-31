@@ -5,7 +5,8 @@ from dataclasses import dataclass
 from typing import List, Tuple, Iterable, Sequence, Optional, Union
 from tqdm.auto import tqdm
 import torch
-from diffusers import StableDiffusionXLPipeline
+# from diffusers import StableDiffusionXLPipeline
+from fkd_diffusers.fkd_pipeline_sdxl import FKDStableDiffusionXL
 import torch.nn.functional as F
 
 
@@ -112,7 +113,7 @@ def find_cross_attention_modules(unet):
 
 
 def add_steer_hooks(
-    pipe: StableDiffusionXLPipeline,
+    pipe: FKDStableDiffusionXL,
     steer_type: str = "default",
     save_every: int = 1,
     last_half_timesteps: bool = False,
@@ -190,7 +191,7 @@ def reset_step(steer_hooks):
 
 
 def build_final_steering_vectors(
-    pipe: StableDiffusionXLPipeline,
+    pipe: FKDStableDiffusionXL,
     steer_hooks: Sequence[SteeringHooks],
     prompts: List[str],
     num_inference_steps: int = 20,
@@ -298,7 +299,7 @@ def build_final_steering_vectors(
 
 
 def generate_images(
-    pipe: StableDiffusionXLPipeline,
+    pipe: FKDStableDiffusionXL,
     prompts: List,
     num_inference_steps: int,
     guidance_scale: float,
@@ -312,7 +313,7 @@ def generate_images(
     Runs inference using a Stable Diffusion pipeline to generate and save images for a list of prompts.
     
     Args:
-        pipe (StableDiffusionXLPipeline): The Stable Diffusion pipeline used for image generation.
+        pipe (FKDStableDiffusionXL): The Stable Diffusion pipeline used for image generation.
         prompts (List): List of text prompts for image generation.
         num_inference_steps (int): Number of inference steps for the diffusion process.
         guidance_scale (float): Scale for classifier-free guidance.
@@ -348,7 +349,7 @@ def generate_images(
 
 
 def run_grid_experiment(
-    pipe: StableDiffusionXLPipeline,
+    pipe: FKDStableDiffusionXL,
     steer_hooks: List[SteeringHooks],
     test_prompts,
     num_inference_steps,
@@ -362,7 +363,7 @@ def run_grid_experiment(
     Runs a grid search experiment over combinations of guidance scale and steering scale for image generation.
     
     Args:
-        pipe (StableDiffusionXLPipeline): The diffusion pipeline used for image generation.
+        pipe (FKDStableDiffusionXL): The diffusion pipeline used for image generation.
         steer_hooks (List[SteeringHooks]): List of steering hook objects to control image generation.
         test_prompts: Prompts to use for image generation.
         num_inference_steps (int): Number of inference steps for the diffusion process.

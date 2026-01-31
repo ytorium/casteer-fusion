@@ -1,2 +1,4 @@
+clip
+fairscale
 hpsv2==1.2.0
 google-genai
