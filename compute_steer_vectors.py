@@ -1,4 +1,5 @@
 import os
+import argparse
 import pickle
 import torch
 
@@ -7,10 +8,8 @@ import image_utils
 import steering
 import prompt_catalog
 from fks_utils import get_model
-#from models import get_model
 
 # parsing arguments
-import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, choices=['sdxl', 'sdxl-turbo', 'sdxl-turbo-image'], default="sdxl-turbo")
 parser.add_argument('--mode', type=str, choices=['concrete', 'human-related', 'anime-style'], default="anime-style")

@@ -4,8 +4,8 @@ Utility functions for the FKD pipeline.
 import torch
 from diffusers import DDIMScheduler
 
-from fkd_pipeline_sdxl import FKDStableDiffusionXL
-from fkd_pipeline_sd import FKDStableDiffusion
+from fkd_diffusers.fkd_pipeline_sdxl import FKDStableDiffusionXL
+from fkd_diffusers.fkd_pipeline_sd import FKDStableDiffusion
 
 from fkd_diffusers.rewards import (
     do_clip_score,
