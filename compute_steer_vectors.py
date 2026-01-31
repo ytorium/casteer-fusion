@@ -6,7 +6,8 @@ import torch
 import image_utils
 import steering
 import prompt_catalog
-from models import get_model
+from fks_utils import get_model
+#from models import get_model
 
 # parsing arguments
 import argparse
@@ -17,11 +18,12 @@ parser.add_argument('--num_steps', type=int, default=20) #  1 for turbo, 20 for 
 parser.add_argument('--steer_vectors', type=str, default='casteer_vectors') # path to saving steering vectors
 args = parser.parse_args()
 
-pipe = get_model(args.model)
+model_name="stable-diffusion-xl"
+pipeline = get_model(model_name)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-pipe.to(device)
-pipe.set_progress_bar_config(disable=True)
+pipeline.to(device)
+pipeline.set_progress_bar_config(disable=True)
 
 
 ## Hyper Paramters
@@ -41,10 +43,10 @@ else:
   raise NotImplementedError(f"Steering prompt mode {args.mode} not implemented")
 
 # add hooks to collect activations and later applies steering vector to intermiate activations
-steer_hooks = steering.add_steer_hooks(pipe, steer_type=STEER_TYPE, save_every=1)
+steer_hooks = steering.add_steer_hooks(pipeline, steer_type=STEER_TYPE, save_every=1)
 
 steering_vectors = steering.build_final_steering_vectors(
-    pipe,
+    pipeline,
     steer_hooks,
     steer_prompts,
     num_inference_steps=INF_STEPS,
