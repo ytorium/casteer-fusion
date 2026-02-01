@@ -1,4 +1,5 @@
 import os
+import sys
 import argparse
 import pickle
 import torch
@@ -8,6 +9,8 @@ import image_utils
 import steering
 import prompt_catalog
 from fks_utils import get_model
+
+sys.path.append('fkd_diffusers')
 
 # parsing arguments
 #parser = argparse.ArgumentParser()
