@@ -9,6 +9,7 @@ import image_utils
 import steering
 import prompt_catalog
 from fks_utils import get_model
+from launch_eval_runs import do_eval
 
 sys.path.append('fkd_diffusers')
 
