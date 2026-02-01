@@ -1,4 +1,5 @@
-import os
+import
+import argparse
 import pickle
 import torch
 
@@ -6,10 +7,9 @@ import torch
 import image_utils
 import steering
 import prompt_catalog
-from models import get_model
+from fks_utils import get_model
 
 # parsing arguments
-import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, choices=['sdxl', 'sdxl-turbo', 'sdxl-turbo-image'], default="sdxl-turbo")
 parser.add_argument('--mode', type=str, choices=['concrete', 'human-related', 'anime-style'], default="anime-style")
@@ -26,11 +26,12 @@ image_path = args.image_dir+'/'+image_name
 #alphas = args.alpha.split(',')
 #number_images = len(alphas)
 
-pipe = get_model(args.model)
+model_name="stable-diffusion-xl"
+pipeline = get_model(model_name)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-pipe.to(device)
-pipe.set_progress_bar_config(disable=True)
+pipeline.to(device)
+pipeline.set_progress_bar_config(disable=True)
 
 ## Hyper Paramters
 STEER_TYPE = "default"
@@ -58,7 +59,7 @@ with open(args.steer_vectors, 'rb') as handle:
     steering_vectors = pickle.load(handle)
 
 # add hooks to collect activations and later applies steering vector to intermiate activations
-steer_hooks = steering.add_steer_hooks(pipe, steer_type=STEER_TYPE, save_every=1)
+steer_hooks = steering.add_steer_hooks(pipeline, steer_type=STEER_TYPE, save_every=1)
 
 # adds calculated steering vectors to hooks so it can be applied during forward pass
 steering.add_final_steer_vectors(steer_hooks, steering_vectors)
@@ -68,7 +69,8 @@ print(TEST_PROMPTS)
 # generates images using steering vectors
 STEER_SCALE_LIST = [0.0, 1.0, 2.0, 10.0]
 steering.run_grid_experiment(
-    pipe, steer_hooks, TEST_PROMPTS,
+    pipeline,
+    steer_hooks, TEST_PROMPTS,
     num_inference_steps=INF_STEPS,
     steer_type=STEER_TYPE,
     gscale_list=[GUIDE_SCALE],
