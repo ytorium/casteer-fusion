@@ -100,7 +100,7 @@ def find_cross_attention_modules(unet):
     Finds all cross-attention modules in the UNet.
 
     Args:
-        unet: The UNet model (pipe.unet) to search for cross-attention modules. 
+        unet: The UNet model (pipeline.unet) to search for cross-attention modules.
 
     Returns:
         List of tuples containing (module_name, module) for each cross-attention module found.
@@ -113,7 +113,7 @@ def find_cross_attention_modules(unet):
 
 
 def add_steer_hooks(
-    pipe: FKDStableDiffusionXL,
+    pipeline: FKDStableDiffusionXL,
     steer_type: str = "default",
     save_every: int = 1,
     last_half_timesteps: bool = False,
@@ -121,7 +121,7 @@ def add_steer_hooks(
     """Adds steering hooks to cross-attention layers in the Stable Diffusion pipeline.
 
     Args:
-        pipe: The Hugging Face Stable Diffusion pipeline model.
+        pipeline: The Hugging Face Stable Diffusion pipeline model.
         steer_type (str): Type of steering to use.
         save_every (int): Frequency at which to collect or apply steering vectors. Defaults to 1.
         last_half_timesteps (bool): If ``True``, steering vectors are applied only during the last
@@ -131,7 +131,7 @@ def add_steer_hooks(
         List[SteeringHooks]: List of ``SteeringHooks`` objects registered to cross-attention layers.
     """
 
-    targets = find_cross_attention_modules(pipe.unet)
+    targets = find_cross_attention_modules(pipeline.unet)
 
     steer_hooks = []
     for _, m in targets:
@@ -191,7 +191,7 @@ def reset_step(steer_hooks):
 
 
 def build_final_steering_vectors(
-    pipe: FKDStableDiffusionXL,
+    pipeline: FKDStableDiffusionXL,
     steer_hooks: Sequence[SteeringHooks],
     prompts: List[str],
     num_inference_steps: int = 20,
@@ -204,7 +204,7 @@ def build_final_steering_vectors(
     Calculates the final steering vectors from the dataset (prompt pairs).
 
     Args:
-        pipe: The Stable Diffusion pipeline used for image generation and activation collection.
+        pipeline: The Stable Diffusion pipeline used for image generation and activation collection.
         steer_hooks: List of steering hook objects registered to cross-attention layers.
         prompts: List of prompt pairs [(positive, negative)] for steering vector calculation.
         num_inference_steps: Number of inference steps for the diffusion process. Defaults to 20.
@@ -230,20 +230,20 @@ def build_final_steering_vectors(
         
     for idx, (prompt_pos, prompt_neg) in iterator:
         # POS - Generate image, save it, and collect activations
-        pos_img = pipe(prompt=prompt_pos,
+        pos_img = pipeline(prompt=prompt_pos,
                  num_inference_steps=num_inference_steps,
                  guidance_scale=guidance_scale,
-                 generator=torch.Generator(device=pipe.device).manual_seed(seed)).images[0]
+                 generator=torch.Generator(device=pipeline.device).manual_seed(seed)).images[0]
         
         # Save positive image
         pos_filename = f"{idx:02d}_pos_{safe_filename(prompt_pos)}.png"
         pos_img.save(os.path.join(save_posneg_images_to, pos_filename))
         
         # Collect activations for positive image - need to run again with same seed
-        _ = pipe(prompt=prompt_pos,
+        _ = pipeline(prompt=prompt_pos,
                  num_inference_steps=num_inference_steps,
                  guidance_scale=guidance_scale,
-                 generator=torch.Generator(device=pipe.device).manual_seed(seed)).images[0]
+                 generator=torch.Generator(device=pipeline.device).manual_seed(seed)).images[0]
                  
         # Cache activations
         steer_matrix_pos = [] 
@@ -253,20 +253,20 @@ def build_final_steering_vectors(
         clear_steer_cache(steer_hooks) # clear activation cache    
 
         # NEG - Generate image, save it, and collect activations
-        neg_img = pipe(prompt=prompt_neg,
+        neg_img = pipeline(prompt=prompt_neg,
                  num_inference_steps=num_inference_steps,
                  guidance_scale=guidance_scale,
-                 generator=torch.Generator(device=pipe.device).manual_seed(seed)).images[0]
+                 generator=torch.Generator(device=pipeline.device).manual_seed(seed)).images[0]
                  
         # Save negative image
         neg_filename = f"{idx:02d}_neg_{safe_filename(prompt_neg)}.png"
         neg_img.save(os.path.join(save_posneg_images_to, neg_filename))
         
         # Collect activations for negative image - need to run again with same seed
-        _ = pipe(prompt=prompt_neg,
+        _ = pipeline(prompt=prompt_neg,
                  num_inference_steps=num_inference_steps,
                  guidance_scale=guidance_scale,
-                 generator=torch.Generator(device=pipe.device).manual_seed(seed)).images[0]
+                 generator=torch.Generator(device=pipeline.device).manual_seed(seed)).images[0]
         
         # cache activations
         steer_matrix_neg = [] 
@@ -299,7 +299,7 @@ def build_final_steering_vectors(
 
 
 def generate_images(
-    pipe: FKDStableDiffusionXL,
+    pipeline: FKDStableDiffusionXL,
     prompts: List,
     num_inference_steps: int,
     guidance_scale: float,
@@ -313,7 +313,7 @@ def generate_images(
     Runs inference using a Stable Diffusion pipeline to generate and save images for a list of prompts.
     
     Args:
-        pipe (FKDStableDiffusionXL): The Stable Diffusion pipeline used for image generation.
+        pipeline (FKDStableDiffusionXL): The Stable Diffusion pipeline used for image generation.
         prompts (List): List of text prompts for image generation.
         num_inference_steps (int): Number of inference steps for the diffusion process.
         guidance_scale (float): Scale for classifier-free guidance.
@@ -333,10 +333,10 @@ def generate_images(
 
     for i, prompt in enumerate(prompts, 1):
         reset_step(steer_hooks) # reset running step before each generation
-        img = pipe(prompt=prompt,
+        img = pipeline(prompt=prompt,
                    num_inference_steps=num_inference_steps,
                    guidance_scale=guidance_scale,
-                   generator=torch.Generator(device=pipe.device).manual_seed(seed)).images[0]
+                   generator=torch.Generator(device=pipeline.device).manual_seed(seed)).images[0]
 
         fp = os.path.join(out_dir, f"gen_{i:02d}.png")
         img.save(fp)
@@ -349,7 +349,7 @@ def generate_images(
 
 
 def run_grid_experiment(
-    pipe: FKDStableDiffusionXL,
+    pipeline: FKDStableDiffusionXL,
     steer_hooks: List[SteeringHooks],
     test_prompts,
     num_inference_steps,
@@ -363,7 +363,7 @@ def run_grid_experiment(
     Runs a grid search experiment over combinations of guidance scale and steering scale for image generation.
     
     Args:
-        pipe (FKDStableDiffusionXL): The diffusion pipeline used for image generation.
+        pipeline (FKDStableDiffusionXL): The diffusion pipeline used for image generation.
         steer_hooks (List[SteeringHooks]): List of steering hook objects to control image generation.
         test_prompts: Prompts to use for image generation.
         num_inference_steps (int): Number of inference steps for the diffusion process.
@@ -390,7 +390,7 @@ def run_grid_experiment(
             )
             indx += 1
             paths = generate_images(
-                pipe,
+                pipeline,
                 test_prompts,
                 num_inference_steps=num_inference_steps,
                 guidance_scale=gscale,
