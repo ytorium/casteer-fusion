@@ -19,7 +19,7 @@ from fks_utils import get_model
 args = dict(
     seed=0, output_dir="/content/drive/My Drive/castfus_images", eta=1.0, metrics_to_compute="ImageReward",
     prompt_path='./prompt_files/image_rewards_benchmark.json', 
-    model_name="stable-diffusion-xl", 
+    model_name="sdxl-turbo",
   )
 
 fkd_args = dict(
