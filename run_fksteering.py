@@ -24,7 +24,7 @@ args = dict(
 
 fkd_args = dict(
     lmbda=2.0, num_particles=4, adaptive_resampling=True, resample_frequency=20,
-    time_steps=20, potential_type='max', resampling_t_start=20,
+    time_steps=100, potential_type='max', resampling_t_start=20,
     resampling_t_end=50, guidance_reward_fn='ImageReward', use_smc=True,
    )
 
