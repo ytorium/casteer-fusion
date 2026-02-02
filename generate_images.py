@@ -11,7 +11,7 @@ from models import get_model
 
 # parsing arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('--model_name', type=str, choices=['sdxl', 'sdxl-turbo', 'sdxl-turbo-image'], default="sdxl-turbo")
+parser.add_argument('--model', type=str, choices=['sdxl', 'sdxl-turbo', 'sdxl-turbo-image'], default="sdxl-turbo")
 parser.add_argument('--mode', type=str, choices=['concrete', 'human-related', 'anime-style'], default="anime-style")
 parser.add_argument('--image_name', type=str, default="girl_with_kitty")
 parser.add_argument('--prompt', type=str, default="a girl with a kitty")
@@ -26,7 +26,7 @@ image_path = args.image_dir+'/'+image_name
 #alphas = args.alpha.split(',')
 #number_images = len(alphas)
 
-pipeline = get_model(args.model_name)
+pipeline = get_model(args.model)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 pipeline.to(device)
