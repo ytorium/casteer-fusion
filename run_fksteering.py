@@ -17,14 +17,14 @@ from fks_utils import get_model
 
 # set args
 args = dict(
-    seed=0, output_dir="output", eta=1.0, metrics_to_compute="ImageReward",
+    seed=0, output_dir="/content/drive/My Drive/castfus_images", eta=1.0, metrics_to_compute="ImageReward",
     prompt_path='./prompt_files/image_rewards_benchmark.json', 
     model_name="stable-diffusion-xl", 
   )
 
 fkd_args = dict(
     lmbda=2.0, num_particles=4, adaptive_resampling=True, resample_frequency=20,
-    time_steps=100, potential_type='max', resampling_t_start=20,
+    time_steps=20, potential_type='max', resampling_t_start=20,
     resampling_t_end=50, guidance_reward_fn='ImageReward', use_smc=True,
    )
 
