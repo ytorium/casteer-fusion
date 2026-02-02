@@ -12,7 +12,7 @@ from models import get_model
 # parsing arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, choices=['sdxl', 'sdxl-turbo', 'sdxl-turbo-image'], default="sdxl-turbo")
-arser.add_argument('--mode', type=str, choices=['concrete', 'human-related', 'anime-style'], default="anime-style")
+parser.add_argument('--mode', type=str, choices=['concrete', 'human-related', 'anime-style'], default="anime-style")
 parser.add_argument('--num_steps', type=int, default=20) #  1 for turbo, 20 for sdxl
 parser.add_argument('--steer_vectors', type=str, default='casteer_vectors') # path to saving steering vectors
 args = parser.parse_args()
