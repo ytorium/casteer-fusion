@@ -146,20 +146,20 @@ def add_steer_hooks(
     return steer_hooks
 
 
-def add_final_steer_vectors(steer_hooks,final_steering_vectors):
+def add_steer_vectors(steer_hooks, steer_vectors):
     """
-    Attaches the final steering vectors to each SteeringHooks object for use during image generation.
+    Attaches the steering vectors to each SteeringHooks object for use during image generation.
 
     Args:
         steer_hooks: List of steering hook objects to update.
-        final_steering_vectors: List of steering vectors to assign to each hook.
+        steer_vectors: List of steering vectors to assign to each hook.
     """
-    assert len(steer_hooks) == len(final_steering_vectors), "Number of hooks should be the same as number of steering vectors"
+    assert len(steer_hooks) == len(steer_vectors), "Number of hooks should be the same as number of steering vectors"
     
     for i, hook in enumerate(steer_hooks):
-        hook.steer_vectors = final_steering_vectors[i].detach().cpu()
+        hook.steer_vectors = steer_vectors[i].detach().cpu()
     
-    print(f"[hooks] Attached {len(final_steering_vectors)} steering vectors")
+    print(f"[hooks] Attached {len(steer_vectors)} steering vectors")
 
 
 def set_steer_scale(steer_hooks, scale):

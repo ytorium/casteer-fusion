@@ -31,19 +31,10 @@ def get_model(model):
         unet = UNet2DConditionModel.from_pretrained(
             "mhdang/dpo-sdxl-text2image-v1",
             subfolder="unet",
-            torch_dtype=torch.float16)
-
-        pipe.unet = unet
-   
-    elif model == 'sdxl-turbo-image':
-        pipe = StableDiffusionXLPipeline.from_pretrained(
-            "stabilityai/sdxl-turbo",
-            torch_dtype=torch.float16,
-            variant="fp16",
-            use_safetensors=True,
-            cache_dir='./cache'
+            torch_dtype=torch.float16
             )
 
         pipe.unet = unet
+   
 
-    return pipe
+      return pipe
