@@ -37,4 +37,4 @@ def get_model(model):
         pipe.unet = unet
    
 
-      return pipe
+    return pipe
