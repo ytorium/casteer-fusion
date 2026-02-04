@@ -1,122 +1,28 @@
 from typing import List, Tuple
 
+# ========= Anime set (from https://github.com/Atmyre/CASteer)  ==========
 
-# ============== Metallic sculpture set ==============
-METALLIC_SCULPTURE_SET: List[Tuple[str, str]] = [
-    ("Cinematic shot of a horse, metallic-chrome sculpture, 4K detail", "Cinematic shot of a horse, 4K detail"),
-    ("Cinematic shot of a human face, metallic-chrome sculpture, 4K detail", "Cinematic shot of a human face, 4K detail"),
-    ("Studio-lit rose, metallic-chrome sculpture, 4K detail", "Studio-lit rose, 4K detail"),
-    ("Portrait of an owl perched, metallic-chrome sculpture, 4K detail", "Portrait of an owl perched, 4K detail"),
-    ("Closeup portrait of a dog’s face, metallic-chrome sculpture, 4K detail", "Closeup portrait of a dog’s face, 4K detail"),
-    ("Closeup of a dog yawning, metallic-chrome sculpture, 4K detail", "Closeup of a dog yawning, 4K detail"),
-    ("Cinematic shot of a phoenix rising, metallic-chrome sculpture, 4K detail", "Cinematic shot of a phoenix rising, 4K detail"),
-    ("Studio-lit wooden chair, metallic-chrome sculpture, 4K detail", "Studio-lit wooden chair, 4K detail"),
-    ("Still life of a coffee cup on a saucer, metallic-chrome sculpture, 4K detail", "Still life of a coffee cup on a saucer, 4K detail"),
-    ("Still life of a vase on a table, metallic-chrome sculpture, 4K detail", "Still life of a vase on a table, 4K detail"),
-    ("Portrait of Mickey Mouse, metallic-chrome sculpture, 4K detail", "Portrait of Mickey Mouse, 4K detail"),
-    ("Still life of 2 apples on a table, metallic-chrome sculpture, 4K detail", "Still life of 2 apples on a table, 4K detail"),
-    ("Overhead shot of 3 chess pieces on a board, metallic-chrome sculptures, 4K detail", "Overhead shot of 3 chess pieces on a board, 4K detail"),
-    ("Studio portrait of 2 people standing side by side, metallic-chrome sculptures, 4K detail", "Studio portrait of 2 people standing side by side, 4K detail"),
-    ("Close-up of Leonardo DiCaprio, metallic-chrome sculpture, 4K detail", "Close-up of Leonardo DiCaprio, 4K detail"),
-    ("Cinematic shot of 2 lions facing each other, metallic-chrome sculptures, 4K detail", "Cinematic shot of 2 lions facing each other, 4K detail"),
-    ("Still life of 3 books stacked on a desk, metallic-chrome sculptures, 4K detail", "Still life of 3 books stacked on a desk, 4K detail"),
-    ("Overhead shot of a watermellon in a bowl, metallic-chrome sculpture, 4K detail", "Overhead shot of a watermellon in a bowl, 4K detail"),
-    ("Cinematic closeup of a tiger roaring, metallic-chrome sculpture, 4K detail", "Cinematic closeup of a tiger roaring, 4K detail"),
-    ("Wide-angle view of a violin leaning against a wall, metallic-chrome sculpture, 4K detail", "Wide-angle view of a violin leaning against a wall, 4K detail"),
-    ("Macro detail of 2 wine glasses clinking together, metallic-chrome sculptures, 4K detail", "Macro detail of 2 wine glasses clinking together, 4K detail"),
-    ("Dynamic angle of sneakers on a running track, metallic-chrome sculptures, 4K detail", "Dynamic angle of sneakers on a running track, 4K detail"),
-    ("Cinematic headshot of Mahatma Gandhi, metallic-chrome sculpture, 4K detail", "Cinematic headshot of Mahatma Gandhi, 4K detail"),
-    ("Close focus on 3 cupcakes on a plate, metallic-chrome sculptures, 4K detail", "Close focus on 3 cupcakes on a plate, 4K detail"),
-    ("Side profile of a harley davidson motorcycle , metallic-chrome sculpture, 4K detail", "Side profile of a harley davidson motorcycle, 4K detail"),
-    ("Atmospheric scene of a typewriter on an old desk, metallic-chrome sculpture, 4K detail", "Atmospheric scene of a typewriter on an old desk, 4K detail"),
-]
-
-# ============== Happy set ==============
-HAPPY_EXPRESSION_SET = [
-    ("Close-up portrait of an adult man’s face, joyful expression, soft studio light",
-     "Close-up portrait of an adult man’s face, neutral expression, soft studio light"),
-
-    ("Close-up portrait of an adult woman’s face, happy expression, cinematic lighting",
-     "Close-up portrait of an adult woman’s face, neutral expression, cinematic lighting"),
-
-    ("Close-up of a young boy’s face, cheerful look, natural daylight",
-     "Close-up of a young boy’s face, neutral look, natural daylight"),
-
-    ("Close-up of a young girl’s face, joyful gaze, outdoor background",
-     "Close-up of a young girl’s face, neutral gaze, outdoor background"),
-
-    ("Close-up headshot of Albert Einstein’s face, happy lively expression",
-     "Close-up headshot of Albert Einstein’s face, neutral thoughtful expression"),
-
-    ("Close-up portrait of Marilyn Monroe’s face, joyful expression, studio light",
-     "Close-up portrait of Marilyn Monroe’s face, neutral pose, studio light"),
-
-    ("Close-up of Mickey Mouse’s face, happy expression, cartoon style",
-     "Close-up of Mickey Mouse’s face, neutral expression, cartoon style"),
-
-    ("Close-up of Naruto’s face, happy anime expression, sharp linework",
-     "Close-up of Naruto’s face, neutral anime expression, sharp linework"),
-
-    ("Close-up of Batman’s face, happy expressive look, dramatic shadows",
-     "Close-up of Batman’s face, neutral stoic look, dramatic shadows"),
-
-    ("Close-up of Wonder Woman’s face, joyful lively pose, detailed armor framing",
-     "Close-up of Wonder Woman’s face, neutral strong pose, detailed armor framing"),
-
-    ("Close-up of a Labrador retriever’s face, joyful expression, natural light",
-     "Close-up of a Labrador retriever’s face, neutral gaze, natural light"),
-
-    ("Close-up of a Golden Retriever puppy’s face, playful happy look, studio shot",
-     "Close-up of a Golden Retriever puppy’s face, neutral look, studio shot"),
-
-    ("Close-up of a chimpanzee’s face, playful happy look, detailed fur",
-     "Close-up of a chimpanzee’s face, relaxed neutral look, detailed fur"),
-
-    ("Close-up of a Paul McCartney’s face, joyful stance, natural daylight",
-     "Close-up of a Paul McCartney’s face, neutral stance, natural daylight"),
-
-    ("Close-up of a SpiderMan's face, playful joyful look",
-     "Close-up of a SpiderMan's face, neutral water surface look"),
-
-    ("Close-up of a cat’s face, joyful gaze, cinematic detail",
-     "Close-up of a cat’s face, neutral gaze, cinematic detail"),
-
-    ("Close-up of a panda’s face, playful happy look, soft fur detail",
-     "Close-up of a panda’s face, neutral look, soft fur detail"),
-
-    ("Close-up of a baby elephant’s face, joyful lively look, natural light",
-     "Close-up of a baby elephant’s face, neutral calm look, natural light"),
-
-    ("Close-up of a teddy bear’s face, joyful stitched look, soft lighting",
-     "Close-up of a teddy bear’s face, neutral stitched look, soft lighting"),
-
-    ("Close-up of a robot face, joyful mechanical design, glowing eyes",
-     "Close-up of a robot face, neutral mechanical design, glowing eyes"),
-]
-
-# ============== Anime set (from https://github.com/Atmyre/CASteer) ==============
-
-ANIME_PROMPT = [('tench, anime style', 'tench'),
+ANIME_PROMPT = [
  ('goldfish, anime style', 'goldfish'),
  ('great white shark, anime style', 'great white shark'),
  ('tiger shark, anime style', 'tiger shark'),
- ('blue donut, anime style', 'blue donut'),
+ ('hammerhead, anime style', 'hammerhead'),
  ('electric ray, anime style', 'electric ray'),
- ('beautiful knife, anime style', 'beautiful knife'),
+ ('stingray, anime style', 'stingray'),
  ('cock, anime style', 'cock'),
  ('hen, anime style', 'hen'),
  ('ostrich, anime style', 'ostrich'),
  ('brambling, anime style', 'brambling'),
  ('goldfinch, anime style', 'goldfinch'),
- ('big donut, anime style', 'big donut'),
+ ('house finch, anime style', 'house finch'),
  ('junco, anime style', 'junco'),
- ('brown knife, anime style', 'brown knife'),
- ('knife with fork, anime style', 'knife with fork'),
+ ('indigo bunting, anime style', 'indigo bunting'),
+ ('robin, anime style', 'robin'),
  ('bulbul, anime style', 'bulbul'),
  ('jay, anime style', 'jay'),
  ('magpie, anime style', 'magpie'),
  ('chickadee, anime style', 'chickadee'),
- ('donut with apple, anime style', 'donut with apple'),
+ ('water ouzel, anime style', 'water ouzel'),
  ('kite, anime style', 'kite'),
  ('bald eagle, anime style', 'bald eagle'),
  ('vulture, anime style', 'vulture'),
@@ -145,59 +51,11 @@ ANIME_PROMPT = [('tench, anime style', 'tench'),
  ('green lizard, anime style', 'green lizard'),
  ('African chameleon, anime style', 'African chameleon'),
  ('Komodo dragon, anime style', 'Komodo dragon'),
- ('African crocodile, anime style', 'African crocodile')]
+ ('African crocodile, anime style', 'African crocodile')
+] 
 
-# ============== Fine image set ==============
+MAIN_PROMPT =[('goldfish, anime style', 'goldfish'), ('great white shark, anime style', 'great white shark'), ('tiger shark, anime style', 'tiger shark'), ('hammerhead, anime style', 'hammerhead'), ('electric ray, anime style', 'electric ray'), ('stingray, anime style', 'stingray'), ('cock, anime style', 'cock'), ('hen, anime style', 'hen'), ('ostrich, anime style', 'ostrich'), ('brambling, anime style', 'brambling'), ('goldfinch, anime style', 'goldfinch'), ('house finch, anime style', 'house finch'), ('junco, anime style', 'junco'), ('indigo bunting, anime style', 'indigo bunting'), ('robin, anime style', 'robin'), ('bulbul, anime style', 'bulbul'), ('jay, anime style', 'jay'), ('magpie, anime style', 'magpie'), ('chickadee, anime style', 'chickadee'), ('water ouzel, anime style', 'water ouzel'), "('brown knife, anime style', 'brown knife')", "('blue donut, anime style', 'blue donut')", "('knife with fork, anime style', 'knife with fork')", "('big donut, anime style', 'big donut')", "('donut with apple, anime style', 'donut with apple')", "('beautiful cow, anime style', 'beautiful cow')", "('beautiful knife, anime style', 'beautiful knife')", "('orange cow, anime style', 'orange cow')", "('purple sandwich, anime style', 'purple sandwich')", "('little cow, anime style', 'little cow')", "('sandwich and butter, anime style', 'sandwich and butter')", "('delicious sandwich, anime style', 'delicious sandwich')"]
 
-FINE_IMAGE_PROMPT = [('tench, anime style', 'tench, classic image'),
- ('goldfish, anime style', 'goldfish, classic image'),
- ('great white shark, anime style', 'great white shark, classic image'),
- ('tiger shark, anime style', 'tiger shark, classic image'),
- ('hammerhead, anime style', 'hammerhead, classic image'),
- ('electric ray, anime style', 'electric ray, classic image'),
- ('stingray, anime style', 'stingray, classic image'),
- ('cock, anime style', 'cock, classic image'),
- ('hen, anime style', 'hen, classic image'),
- ('ostrich, anime style', 'ostrich, classic image'),
- ('brambling, anime style', 'brambling, classic image'),
- ('goldfinch, anime style', 'goldfinch, classic image'),
- ('house finch, anime style', 'house finch, classic image'),
- ('junco, anime style', 'junco, classic image'),
- ('indigo bunting, anime style', 'indigo bunting, classic image'),
- ('robin, anime style', 'robin, classic image'),
- ('bulbul, anime style', 'bulbul, classic image'),
- ('jay, anime style', 'jay, classic image'),
- ('magpie, anime style', 'magpie, classic image'),
- ('chickadee, anime style', 'chickadee, classic image'),
- ('water ouzel, anime style', 'water ouzel, classic image'),
- ('kite, anime style', 'kite, classic image'),
- ('bald eagle, anime style', 'bald eagle, classic image'),
- ('vulture, anime style', 'vulture, classic image'),
- ('great grey owl, anime style', 'great grey owl, classic image'),
- ('European fire salamander, anime style', 'European fire salamander, classic image'),
- ('common newt, anime style', 'common newt, classic image'),
- ('eft, anime style', 'eft, classic image'),
- ('spotted salamander, anime style', 'spotted salamander, classic image'),
- ('axolotl, anime style', 'axolotl, classic image'),
- ('bullfrog, anime style', 'bullfrog, classic image'),
- ('tree frog, anime style', 'tree frog, classic image'),
- ('tailed frog, anime style', 'tailed frog, classic image'),
- ('loggerhead, anime style', 'loggerhead, classic image'),
- ('leatherback turtle, anime style', 'leatherback turtle, classic image'),
- ('mud turtle, anime style', 'mud turtle, classic image'),
- ('terrapin, anime style', 'terrapin, classic image'),
- ('box turtle, anime style', 'box turtle, classic image'),
- ('banded gecko, anime style', 'banded gecko, classic image'),
- ('common iguana, anime style', 'common iguana, classic image'),
- ('American chameleon, anime style', 'American chameleon, classic image'),
- ('whiptail, anime style', 'whiptail, classic image'),
- ('agama, anime style', 'agama, classic image'),
- ('frilled lizard, anime style', 'frilled lizard, classic image'),
- ('alligator lizard, anime style', 'alligator lizard, classic image'),
- ('Gila monster, anime style', 'Gila monster, classic image'),
- ('green lizard, anime style', 'green lizard, classic image'),
- ('African chameleon, anime style', 'African chameleon, classic image'),
- ('Komodo dragon, anime style', 'Komodo dragon, classic image'),
- ('African crocodile, anime style', 'African crocodile, classic image')]
+
 
 
