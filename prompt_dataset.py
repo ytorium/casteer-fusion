@@ -2,8 +2,7 @@ from typing import List, Tuple
 
 # ========= Anime set (from https://github.com/Atmyre/CASteer)  ==========
 
-ANIME_PROMPT = [
-('goldfish, anime style', 'goldfish'),
+ANIME_PROMPT = [('goldfish, anime style', 'goldfish'),
 ('great white shark, anime style', 'great white shark'),
 ('tiger shark, anime style', 'tiger shark'),
 ('hammerhead, anime style', 'hammerhead'),
